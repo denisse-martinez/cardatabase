@@ -1,11 +1,14 @@
 package com_packt.cardatabase.domain;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -79,17 +82,28 @@ public class Car {
 		this.price = price;
 	}
 	
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner")
-	private Owner owner;
+    @JoinColumn(name = "owner")
+    private Owner owner;
 
-	public Owner getOwner() {
-		return owner;
+    //Getter and setter
+    public Owner getOwner() {
+      return owner;
+    }
+
+    public void setOwner(Owner owner) {
+      this.owner = owner;
+    }
+	
+	@ManyToMany(mappedBy = "cars")
+	private Set<Owner> owners;
+
+	public Set<Owner> getOwners() {
+		return owners;
 	}
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
+	public void setOwners(Set<Owner> owners) {
+		this.owners = owners;
 	}
 	
 	
